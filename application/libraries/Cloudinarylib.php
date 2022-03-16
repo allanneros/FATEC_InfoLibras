@@ -21,9 +21,9 @@ class Cloudinarylib {
 
         // configure Cloudinary API connection
         \Cloudinary::config(array(
-            "cloud_name" => "neros",
-            "api_key"    => "732174979911167", /*874837483274837*/
-            "api_secret" => "XdcprbkvFnYI7CR7n7mI7MtycxI" /* a676b67565c6767a6767d6767f676fe1 */
+            "cloud_name" => CLOUDINARY_CLOUD_NAME,
+            "api_key"    => CLOUDINARY_API_KEY, 
+            "api_secret" => CLOUDINARY_API_SECRET 
         ));
     }
 }
