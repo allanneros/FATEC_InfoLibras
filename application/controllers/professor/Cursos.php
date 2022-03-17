@@ -114,7 +114,7 @@ class Cursos extends CI_Controller {
 
         $this->load->view('header',$data);
         $this->load->view('professor/navbar');
-        $this->load->view('professor/cursos/criar');
+        //$this->load->view('professor/cursos/criar');
 
         if ($this->input->post('form_curso') != NULL) {
             $form_curso     = $this->input->post('form_curso');
