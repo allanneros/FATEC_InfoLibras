@@ -34,8 +34,7 @@
                                     <textarea class="form-control" id="form_descricao" name="form_descricao" rows="3" placeholder="Descreva o curso"></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="form_id_usuario">Professor</label>
-                                    <input type="text" id="form_id_usuario" name="form_id_usuario" class="form-control">
+                                    <input type="hidden" id="form_id_usuario" name="form_id_usuario" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputFile">Imagem</label>
