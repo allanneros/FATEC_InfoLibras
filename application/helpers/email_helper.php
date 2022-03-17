@@ -5,22 +5,31 @@
 //Contem funcoes relacionadas a envio de e-mail
 //Usa a propria biblioteca do CodeIgniter
 
-if ( !function_exists('enviar_email')) {
-    function enviar_email($destinatarios,$assunto,$corpo) {
+if ( !function_exists('sendMail')) {
+    function sendMail($mailRecipients,$mailSubject,$mailBody) {
+
         $CI =& get_instance();
-        $CI->load->library('email');
 
-        $CI->email->from("contato@infolibras.com.br", 'Curso em Libras');
-        $CI->email->reply_to("allan@neros.com.br");
+        $mailConfig = array(
+            'charset'   =>  'utf-8',
+            'mailtype'  =>  'html',
+            'CRLF'      =>  '\r\n',
+            'newline'   =>  '\r\n'
+        );
+        $CI->load->library('email',$mailConfig);
 
-        $CI->email->subject($assunto);     
-        $CI->email->message($corpo);
+        $CI->email->from(LABS_MAIL_SENDER, APP_NAME);
+        $CI->email->reply_to(LABS_MAIL_REPLY_TO);
 
-        if (!is_array($destinatarios)) {
-            $CI->email->to($destinatarios);
+        $mailBody = _renderTemplate($mailSubject,$mailBody);
+        $CI->email->subject($mailSubject);     
+        $CI->email->message($mailBody);
+
+        if (!is_array($mailRecipients)) {
+            $CI->email->to($mailRecipients);
         } else {
-	        foreach ($destinatarios as $destinatario) {
-	    	    $CI->email->to($destinatario);     
+	        foreach ($mailRecipients as $recipient) {
+	    	    $CI->email->to($recipient);     
 	        }
         }
 
@@ -31,14 +40,27 @@ if ( !function_exists('enviar_email')) {
             return $CI->email->print_debugger();
         }
 
-        //$CI->email->to("email_destinatario@dominio.com"); 
-        //$CI->email->subject("Assunto do e-mail");
-        //$CI->email->cc('email_copia@dominio.com');
-        //$CI->email->bcc('email_copia_oculta@dominio.com');
-        //$CI->email->message("Aqui vai a mensagem ao seu destinatário");
-        //$CI->email->send();
     }   
 }
+
+if ( !function_exists('_renderTemplate')) {
+    function _renderTemplate($mailTitle, $mailBody) {
+        //Pego o template padrão na pasta Mail
+        $templateBody   = file_get_contents(__DIR__ . '/mail_template.html');
+        $tidy           = tidy_parse_string($templateBody);
+        $templateBody   = $tidy->Body()->value;
+
+        //converter os caracteres especiais
+        $templateBody   = mb_convert_encoding($templateBody,'UTF-8');
+
+        //substitui titulo e corpo
+        $templateBody = str_replace("{{mailTitle}}",$mailTitle,$templateBody);
+        $templateBody = str_replace("{{mailBody}}",$mailBody,$templateBody);
+
+        return $templateBody;
+    }
+}
+
 
 if ( !function_exists('enviar_email_registro')) {
     function enviar_email_registro($email,$nome,$chave) {
