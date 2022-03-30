@@ -289,5 +289,5 @@ switch (ENVIRONMENT)
  *
  * And away we go...
  */
-require_once 'neros_parameters.php'
+require_once 'neros_parameters.php';
 require_once BASEPATH.'core/CodeIgniter.php';
