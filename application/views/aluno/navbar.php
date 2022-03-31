@@ -3,7 +3,7 @@
             <div class="container-fluid">
             <div class="navbar-header">
                 <span class="logo-lg">
-                    <img src="<?php echo(base_url() . 'uploads/img/logo.png');?>" style="width:80%; height:80%;">
+                    <img src="<?php echo(base_url() . 'uploads/img/logo.png');?>" width="25%" height="25%">
                 </span>
             </div>
 

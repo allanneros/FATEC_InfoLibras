@@ -13,48 +13,74 @@ class Cursos extends CI_Controller {
         $this->load->model('curso_model');
     }
 
+    private function _verificarInscricao($id_aluno,$id_curso) {
+        return $this->curso_model->verificarMatriculaCurso($id_aluno,$id_curso);
+    }
+
     //Inscrição
     //Registra a matricula do aluno no curso 
     public function matricular($id_curso) {
-        $data       = lerSessaoAtual();
-        $id_aluno   = $data['usuario_id'];
+        verificarSessaoAtiva();
 
-        $data['retorno'] = $this->curso_model->matricularCurso($id_aluno,$id_curso);
-        //Se matriculou, deve ir ate o curso
-        if ($data['retorno']) {
-            $this->index($data['retorno']);
-            redirect(base_url() . index_page() . '/inicio'); //TODO: mudar para a pagina do curso matriculado
+        if (usuarioAdmin() || usuarioProfessor()) {
+            redirect(base_url() . index_page() . '/inicio');
         }
+
+        $data       = lerSessaoAtual();
+        $retorno = $this->_verificarInscricao($data['usuario_id'],$id_curso);
+
+        if ($retorno) {
+            $data['retorno'] = "Você já está matriculado neste curso.";
+        } else {
+            $retorno = $this->curso_model->matricularCurso($data['usuario_id'],$id_curso);
+            if ($retorno) {
+                $data['retorno'] = "Inscrição realizada com sucesso.";
+            } 
+        }
+
+        $this->index($data['retorno']);
     }
 
     //Página inicial 
     public function index($retorno=NULL) {
         try {
-            $data = lerSessaoAtual();
-            
-            if (!is_null($retorno)) {
-                $data['retorno'] = $retorno;
+            verificarSessaoAtiva();
+
+            if (usuarioAdmin() || usuarioProfessor()) {
+                redirect(base_url() . index_page() . '/inicio');
             }
+
+            $data = lerSessaoAtual();
+            $data['retorno'] = (!is_null($retorno)) ? $retorno : ''; 
             
-            $this->pesquisar();
+            $this->pesquisar($data['retorno']);
 
         }  catch(Exception $e) {
             echo($e->getMessage());
+
         }
     }    
 
     //Pesquisar curso
     //Pesquisa o nome ou a descrição do curso
-    public function pesquisar($palavra=NULL) {
+    public function pesquisar($retorno=NULL,$palavra=NULL) {
         try {
+            verificarSessaoAtiva();
+
+            if (usuarioAdmin() || usuarioProfessor()) {
+                redirect(base_url() . index_page() . '/inicio');
+            }
+
             $data = lerSessaoAtual();
 
             $data['lista_cursos'] = $this->curso_model->pesquisarCursosAtivos($palavra);
-            $data['page_title'] = 'Buscar cursos';
-            $this->load->view('header',$data);
+            $data['pageTitle'] = 'Buscar cursos';
+            $data['retorno'] = $retorno;
+            
+            $this->load->view('_restrito/header',$data);
             $this->load->view('aluno/navbar',$data);
             $this->load->view('aluno/cursos/cursos_pesquisa',$data);
-            $this->load->view('footer',$data);
+            $this->load->view('_restrito/footer',$data);
 
         }  catch(Exception $e) {
             echo($e->getMessage());
@@ -63,20 +89,13 @@ class Cursos extends CI_Controller {
 
     //Página para visualização - visualiza os dados do curso e lista as aulas
     public function visualizar($id_curso) {
-        //$data = lerSessaoAtual();
+        verificarSessaoAtiva();
 
-        $usuario_id         = $this->session->userdata('usuario_id');
-        $usuario_nome       = $this->session->userdata('usuario_nome');
-        $usuario_login      = $this->session->userdata('usuario_login');
-        $usuario_admin      = $this->session->userdata('usuario_admin');
-        $usuario_professor  = $this->session->userdata('usuario_professor');
+        if (usuarioAdmin() || usuarioProfessor()) {
+            redirect(base_url() . index_page() . '/inicio');
+        }
 
-        $data['usuario_id']         = $usuario_id;
-        $data['usuario_nome']       = $usuario_nome;
-        $data['usuario_login']      = $usuario_login;
-        $data['usuario_admin']      = $usuario_admin;
-        $data['usuario_professor']  = $usuario_professor;
-
+        $data = lerSessaoAtual();
         $curso = $this->curso_model->lerCurso($id_curso);
 
         if ($curso == NULL) {
@@ -92,10 +111,10 @@ class Cursos extends CI_Controller {
             $data['curso']          = $curso;
             $data['lista_aulas']    = $aulas;
 
-            $this->load->view('header',$data);
+            $this->load->view('_restrito/header',$data);
             $this->load->view('aluno/navbar');
             $this->load->view('aluno/cursos/visualizar',$data);
-            $this->load->view('footer',$data);
+            $this->load->view('_restrito/footer',$data);
         }
     }
 

@@ -20,7 +20,7 @@
 								echo('<div class="alert alert-success alert-dismissible">');
 								echo('<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>');
                 				echo('<h4><i class="icon fa fa-check"></i> Aviso</h4>');
-                				echo('sucesso.');
+                				echo($retorno);
               					echo('</div>');
 							}
 						}
@@ -61,7 +61,7 @@
                                         echo('<td>');
 											echo('<b><a href="' . $link_visualizar . '">' . $curso_nome . '</a></b>');
 											echo('<br>');
-											echo('<i>' . $professor . '</i>');
+											echo('<b><i>' . $professor . '</i></b>');
 											echo('<p>' . nl2br($descricao)	. '</p>');
                                         echo('</td>');
 										echo('<td>');

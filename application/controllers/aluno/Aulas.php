@@ -13,8 +13,13 @@ class Aulas extends CI_Controller {
     }
 
     public function visualizar($id_aula) {
-        $data = lerSessaoAtual();
+        verificarSessaoAtiva();
 
+        if (usuarioAdmin() || usuarioProfessor()) {
+            redirect(base_url() . index_page() . '/inicio');
+        }
+
+        $data = lerSessaoAtual();
         $aula = $this->aula_model->lerAula($id_aula);
 
         if ($aula == NULL) {
@@ -22,13 +27,13 @@ class Aulas extends CI_Controller {
             redirect(base_url() . index_page() . '/aluno/cursos');
         } else {
             //Carrega a página de visualização do curso e das aulas
-            //var_dump($aula);
+            $data['pageTitle'] = "Visualizar aula";
             $data['aula'] = $aula;
 
-            $this->load->view('header',$data);
+            $this->load->view('_restrito/header',$data);
             $this->load->view('aluno/navbar');
             $this->load->view('aluno/aulas/visualizar',$data);
-            $this->load->view('footer',$data);
+            $this->load->view('_restrito/footer',$data);
         }
     }
 
