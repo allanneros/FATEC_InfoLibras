@@ -10,6 +10,22 @@ class Usuario_model extends CI_Model {
         parent::__construct(); 
     }
 
+    public function excluirUsuario($id) {
+        $this->db->where('id',$id);
+        $this->db->delete('usuario');
+        return ($this->db->affected_rows()>0?TRUE:FALSE);
+    }
+
+    public function atualizarSenhaUsuario($id,$senha) {
+        $senha = hash('sha512',$senha);
+        $data = array(
+            'senha'     =>  $senha
+        );
+        $this->db->where('id',$id);
+        $this->db->update('usuario',$data);
+        return ($this->db->affected_rows()>0?TRUE:FALSE);
+    }
+
     public function localizarUsuarioChave($chave) {
         //Serve para localizar o usuário pela chave de acesso
         //Necessário para recuperação da senha
