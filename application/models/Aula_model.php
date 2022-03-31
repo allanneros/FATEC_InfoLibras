@@ -10,6 +10,16 @@ class Aula_model extends CI_Model {
         parent::__construct(); 
     }
 
+    //Exclui o video da aula
+    public function excluirVideo($id_aula) {
+        $data = array (
+            'arquivo_video' => ''
+        );
+        $this->db->where('id',$id_aula);
+        $this->db->update('aula',$data);
+        return ($this->db->affected_rows()>0?TRUE:FALSE);
+    }
+
     //Inclui o video na aula
     public function incluirVideo($id_aula,$arquivo_video) {
         $data = array (
