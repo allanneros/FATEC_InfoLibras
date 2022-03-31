@@ -1,5 +1,5 @@
         <!-- Main Footer -->
-        <footer style="position:fixed; left:0; bottom:0; width:100%;">
+        <footer class="main-footer">
             <!-- To the right -->
             <div class="pull-right hidden-xs">
                 Neros Systems <?php echo date("Y"); ?>
@@ -7,6 +7,8 @@
             <!-- Default to the left -->
             <strong>Projeto desenvolvido por <a href="http://labs.neros.com.br">Neros Labs</a>.</strong>
         </footer>
+
+    </div><!-- ./wrapper -->
 
 </body>
 

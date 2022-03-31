@@ -7,7 +7,7 @@
             <span class="logo-mini">I<b>L</b></span>
             <!-- logo for regular state and mobile devices -->
             <span class="logo-lg">
-                <img src="<?php echo(base_url() . 'uploads/img/logo_branco.png');?>">
+                <img src="<?php echo(base_url() . 'uploads/img/logo.png');?>" width="60%" height="60%">
             </span>
         </a>
 

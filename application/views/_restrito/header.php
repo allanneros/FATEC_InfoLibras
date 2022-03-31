@@ -27,6 +27,5 @@
     <![endif]-->	
 
 </head>
-
-<body class="hold-transition login-page" style="background-repeat: no-repeat; background-size: cover; background-image: url(<?php echo(base_url() . 'uploads/img/bg.jpg');?>);">
-	
+<body class="hold-transition skin-black-light layout-top-nav">
+    <div class="wrapper">
