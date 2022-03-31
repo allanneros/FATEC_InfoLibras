@@ -38,6 +38,7 @@
                                     <!--<label for="form_arquivo_video">Video</label>-->
                                     <input type="hidden" class="form-control" id="form_arquivo_video" name="form_arquivo_video" value="<?php echo($aula['arquivo_video']); ?>">
                                     <button type="button" class="btn btn-default" id="button_upload_video">Carregar video</button>
+                                    <button type="button" class="btn btn-danger" id="button_delete_video">Excluir video</button>
                                     <!--   
                                     <button type="submit" class="btn btn-primary" id="button_upload" value="Upload">Upload</button> 
                                     -->
@@ -85,6 +86,10 @@
     document.getElementById("button_voltar").onclick = function(){
         location.href="<?php echo(base_url() . index_page() . '/professor/cursos/visualizar/' . $aula['id_curso'])?>";
     }
+    document.getElementById("button_delete_video").onclick = function(){
+        location.href="<?php echo(base_url() . index_page() . '/professor/aulas/excluirVideo/' . $aula['id'] . '/' . $aula['id_curso'])?>";
+    }
+
 </script>
 
 <script src="https://unpkg.com/cloudinary-core/cloudinary-core-shrinkwrap.min.js" type="text/javascript"></script>
@@ -95,6 +100,8 @@
     document.getElementById("button_upload_video").addEventListener("click", function(){
         myWidget.open();
         }, false);
+
+
 </script>
 
 <script type="text/javascript">  

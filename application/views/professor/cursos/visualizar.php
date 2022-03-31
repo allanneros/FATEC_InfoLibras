@@ -20,7 +20,7 @@
 				<div class="col-xs-12">
 					<?php 
 						$id_curso = $curso['id'];
-						echo('<h1>'. $curso['curso'] . '</h1>');
+						echo('<h1>'. $curso['curso'] . ' ' . '<button class="btn btn-sm btn-default" onclick="window.location=\'' . base_url() . index_page() . "/professor/cursos". '\'">Voltar para a lista de Cursos</button>'. '</h1>');
 						echo('<p>' . nl2br($curso['descricao']) . '</p>');
 					?>
 					<div class="box box-primary">

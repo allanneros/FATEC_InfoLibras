@@ -3,14 +3,14 @@
             <div class="container-fluid">
             <div class="navbar-header">
                 <span class="logo-lg">
-                    <img src="<?php echo(base_url() . 'uploads/img/logo.png');?>" style="width:80%; height:80%;">
+                    <img src="<?php echo(base_url() . 'uploads/img/logo.png');?>" width="20%" height="20%">
                 </span>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">In&iacute;cio <span class="sr-only">(current)</span></a></li>
+                    <li class="active"><a href="<?php echo(base_url() . index_page() . '/professor/inicio');?>">In&iacute;cio <span class="sr-only">(current)</span></a></li>
                     <li><a href="<?php echo(base_url() . index_page() . '/professor/cursos');?>">Meus cursos</a></li>
                     <!--
                     <li class="dropdown">
@@ -64,18 +64,21 @@
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                        <a href="#" class="btn btn-default btn-flat">Perfil</a>
                                     </div>
                                     <div class="pull-right">
                                         <a href="#" id="button_sair" class="btn btn-default btn-flat">Sair</a>
                                     </div>
                                 </li>
                             </ul>
-                        </li><!--/.user account -->
+                        </li>
+                        <!--/.user account -->
                     </ul>
                 </div>
-            </div><!-- /.navbar-collapse -->
-          </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container-fluid -->
         </nav>
     </header>
 
