@@ -10,6 +10,23 @@ class Curso_model extends CI_Model {
         parent::__construct(); 
     }
 
+    //verificar matricula no curso
+    public function verificarMatriculaCurso($id_aluno,$id_curso) {
+        $this->db->select('c.id,c.curso,c.descricao,c.ativo,m.data_inscricao,u.nome');
+        $this->db->from('curso c');
+        $this->db->join('matricula m','m.id_curso = c.id','inner');
+        $this->db->join('usuario u','c.id_usuario = u.id','inner');
+        $where = array(
+                        'm.id_usuario'  => $id_aluno,
+                        'm.status'      => 'A',
+                        'c.id'          => $id_curso,  
+                );
+        $this->db->where($where);
+        $query = $this->db->get();
+        return ($query->result_array() ? TRUE : FALSE);
+
+    }
+
     //Matricular o aluno no curso
     public function matricularCurso($id_aluno,$id_curso) {
         $hoje = date("Y-m-d H:i:s");

@@ -93,8 +93,9 @@
 										if ($professor) {echo('<span class="label label-info">Professor</span>');}										
 										echo('</td>');
 										echo('<td>');
-										$link_editar = base_url() . index_page() . '/admin/usuarios/editar/' . $id;
-										$link_ativar = base_url() . index_page() . '/admin/usuarios/ativar/' . $id . '/';
+										$link_editar 	= base_url() . index_page() . '/admin/usuarios/editar/' . $id;
+										$link_ativar 	= base_url() . index_page() . '/admin/usuarios/ativar/' . $id . '/';
+										$link_excluir 	= base_url() . index_page() . '/admin/usuarios/excluir/' . $id . '/';
 										if ($ativo==-1) {
 											echo('<button class="btn btn-sm btn-warning"');
 											echo('onclick="window.location=\'' . $link_ativar . 0 . '\'"');
@@ -105,7 +106,7 @@
 											echo('>Ativar</button>');
 										}
 										echo('<button class="btn btn-sm btn-default" onclick="window.location=\'' . $link_editar . '\'">Editar</button>');
-										echo('<button class="btn btn-sm btn-danger">Excluir</button>');
+										echo('<button class="btn btn-sm btn-danger" onclick="window.location=\'' . $link_excluir . '\'">Excluir</button>');
 										echo('</td>');
 										echo('</tr>');
 									}

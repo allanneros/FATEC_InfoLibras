@@ -38,7 +38,9 @@
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" id="form_ativo" name="form_ativo" checked> Ativo
+                                        <!--
+                                        <input type="checkbox" id="form_ativo" name="form_ativo" value="true" ckecked> Ativo
+                                        -->
                                     </label>
                                 </div>
                             </div>

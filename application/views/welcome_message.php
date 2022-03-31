@@ -39,20 +39,22 @@
 	<title><?php echo('Projeto Curso em Libras');?></title>
 
 </head>
-<body style="height:100%; background-repeat: no-repeat; background-size: cover; background-image: url(https://assetsnffrgf-a.akamaihd.net/assets/m/502018510/univ/art/502018510_univ_lsr_lg.jpg);">
+<body style="height:100%; background-repeat: no-repeat; background-size: cover; background-image: url(https://assetsnffrgf-a.akamaihd.net/assets/m/502018510/univ/art/502018510_univ_lsr_lg.jpg); ">
     <!--<div class="jumbotron" style="background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg);">
     -->
     <div class="jumbotron" style="background-color: transparent;">
-        <div class="container" style="color:#ffffff;">
-            <img src="<?php echo(base_url() . 'uploads/img/logo.png');?>" width="10%" height="10%">
-            <h1 class="display-4">Curso em Libras</h1>
-            <p class="lead">Projeto de conclusão do curso de Análise e Desenvolvimento de Sistemas da FATEC Ipiranga</p>
-            <p>São Paulo/SP, Brasil, 2018-2019</p>
-            <p class="lead">
-                <button type="button" class="btn btn-primary" id="button_acesso">Acessar o sistema</button>
-                <button type="button" class="btn bg-navy" id="button_registro">Registrar</button>
-            </p>
-            <strong>Projeto desenvolvido pela <a href="http://labs.neros.com.br">Neros Labs</a>.</strong>
+        <div class="container" style="color:#000000; background: #ffffff; opacity: 0.7;">
+            <div style="opacity: 1;">
+                <img src="<?php echo(base_url() . 'uploads/img/logo.png');?>" width="10%" height="10%">
+                <h1 class="display-4" >Curso em Libras</h1>
+                <p class="lead" >Projeto de conclusão do curso de Análise e Desenvolvimento de Sistemas da FATEC Ipiranga</p>
+                <p>São Paulo/SP, Brasil, <?php echo(date('Y'));?></p>
+                <p class="lead">
+                    <button type="button" class="btn btn-primary" id="button_acesso">Acessar o sistema</button>
+                    <button type="button" class="btn bg-navy" id="button_registro">Registrar</button>
+                </p>
+                <strong>Projeto desenvolvido pela <a href="http://labs.neros.com.br">Neros Labs</a>.</strong>
+            </div>
         </div>
     </div>
 
