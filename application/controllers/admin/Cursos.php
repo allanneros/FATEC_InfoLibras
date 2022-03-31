@@ -15,17 +15,13 @@ class Cursos extends CI_Controller {
     //Listar os cursos
     public function index($retorno=NULL) {
         try {
-            $id         = $this->session->userdata('usuario_id');
-            $nome       = $this->session->userdata('usuario_nome');
-            $login      = $this->session->userdata('usuario_login');
-            $admin      = $this->session->userdata('usuario_admin');
-            $professor  = $this->session->userdata('usuario_professor');
+            verificarSessaoAtiva();
 
-            $data['usuario_id']         = $id;
-            $data['usuario_nome']       = $nome;
-            $data['usuario_login']      = $login;
-            $data['usuario_admin']      = $admin;
-            $data['usuario_professor']  = $professor;
+            if (!usuarioAdmin()) {
+                redirect(base_url() . index_page() . '/inicio');
+            }
+
+            $data = lerSessaoAtual();
 
             if (!is_null($retorno)) {
                 $data['retorno'] = $retorno;
@@ -39,13 +35,21 @@ class Cursos extends CI_Controller {
             $this->load->view('admin/cursos/listar',$data);
             $this->load->view('admin/footer',$data);
 
+
         }  catch(Exception $e) {
             echo($e->getMessage());
+
         }
     }
     
     //Habilitar acesso admin ou de professor ao usuário (ou remover)
     function habilitar($id,$tipo_acesso,$acesso) {
+        verificarSessaoAtiva();
+
+        if (!usuarioAdmin()) {
+            redirect(base_url() . index_page() . '/inicio');
+        }
+
         $retorno = $this->usuario_model->habilitarUsuario($id,$tipo_acesso,$acesso);
         if ($retorno) {
             redirect(base_url() . index_page() . '/admin/usuarios');
@@ -54,6 +58,12 @@ class Cursos extends CI_Controller {
 
     //Ativar ou desativar o usuario
     function ativar($id,$ativo) {
+        verificarSessaoAtiva();
+
+        if (!usuarioAdmin()) {
+            redirect(base_url() . index_page() . '/inicio');
+        }
+
         $this->usuario_model->ativarUsuario($id,$ativo);
         //$this->index();
         redirect(base_url() . index_page() . '/admin/usuarios');
@@ -61,22 +71,17 @@ class Cursos extends CI_Controller {
 
     //Criar usuario
     public function criar() {
+        verificarSessaoAtiva();
+
+        if (!usuarioAdmin()) {
+            redirect(base_url() . index_page() . '/inicio');
+        }
+
         //Lista de usuarios para vincular ao curso
         $this->load->model('usuario_model');
+
+        $data = lerSessaoAtual();
         $data['lista_usuarios'] = $this->usuario_model->listarUsuarios();
-
-        $id         = $this->session->userdata('usuario_id');
-        $nome       = $this->session->userdata('usuario_nome');
-        $login      = $this->session->userdata('usuario_login');
-        $admin      = $this->session->userdata('usuario_admin');
-        $professor  = $this->session->userdata('usuario_professor');
-
-        $data['usuario_id']         = $id;
-        $data['usuario_nome']       = $nome;
-        $data['usuario_login']      = $login;
-        $data['usuario_admin']      = $admin;
-        $data['usuario_professor']  = $professor;
-
         $data['page_title'] = 'Criar';
 
         $this->load->view('admin/header',$data);
@@ -104,22 +109,17 @@ class Cursos extends CI_Controller {
 
     //Editar curso
     public function editar($id) {
+        verificarSessaoAtiva();
+
+        if (!usuarioAdmin()) {
+            redirect(base_url() . index_page() . '/inicio');
+        }
+
         //Lista de usuarios para vincular ao curso
         $this->load->model('usuario_model');
+        $data = lerSessaoAtual();
+
         $data['lista_usuarios'] = $this->usuario_model->listarUsuarios();
-
-        $usuario_id         = $this->session->userdata('usuario_id');
-        $usuario_nome       = $this->session->userdata('usuario_nome');
-        $usuario_login      = $this->session->userdata('usuario_login');
-        $usuario_admin      = $this->session->userdata('usuario_admin');
-        $usuario_professor  = $this->session->userdata('usuario_professor');
-
-        $data['usuario_id']         = $usuario_id;
-        $data['usuario_nome']       = $usuario_nome;
-        $data['usuario_login']      = $usuario_login;
-        $data['usuario_admin']      = $usuario_admin;
-        $data['usuario_professor']  = $usuario_professor;
-
         $data['page_title'] = 'Editar';
 
         if ($this->input->post('form_id') != NULL) {
