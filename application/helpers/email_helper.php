@@ -46,7 +46,10 @@ if ( !function_exists('sendMail')) {
 if ( !function_exists('_renderTemplate')) {
     function _renderTemplate($mailTitle, $mailBody) {
         //Pego o template padrão na pasta Mail
-        $templateBody   = file_get_contents(__DIR__ . '/mail_template.html');
+        //$templateFile   = dirname(dirname(__FILE__));
+        $templateFile   = base_url() . 'includes/neros/mail_template.html';
+        error_log($templateFile);
+        $templateBody   = file_get_contents($templateFile);
         $tidy           = tidy_parse_string($templateBody);
         $templateBody   = $tidy->Body()->value;
 
