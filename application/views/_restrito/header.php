@@ -9,11 +9,20 @@
 
 	<title><?php echo(APP_NAME . " - " . $pageTitle); ?></title>
 
+    <link rel="icon" href="<?php echo(base_url() . 'favicon.ico'); ?>" type="image/x-icon" />
+
 	<link rel="stylesheet" href="<?php echo(base_url() . BOOTSTRAP_CSS); ?>">
-	<link rel="stylesheet" href="<?php echo(base_url() . BOOTSTRAP_FONT); ?>">
-	<link rel="stylesheet" href="<?php echo(base_url() . BOOTSTRAP_ICON); ?>">
 	<link rel="stylesheet" href="<?php echo(base_url() . ADMIN_LTE_CSS); ?>">
 	<link rel="stylesheet" href="<?php echo(base_url() . ADMIN_LTE_SKIN); ?>">
+
+	<link rel="stylesheet" href="<?php echo(base_url() . 'includes/admin-lte/css/font-awesome.min.css'); ?>">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <!--
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+	<link rel="stylesheet" href="<?php echo(base_url() . BOOTSTRAP_FONT); ?>">
+	<link rel="stylesheet" href="<?php echo(base_url() . BOOTSTRAP_ICON); ?>">
+    -->
 
     <script src="<?php echo(base_url() . BOOTSTRAP_JQUERY); ?>"></script>
     <script src="<?php echo(base_url() . BOOTSTRAP_JS); ?>"></script>

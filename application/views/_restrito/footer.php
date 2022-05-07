@@ -2,10 +2,10 @@
         <footer class="main-footer">
             <!-- To the right -->
             <div class="pull-right hidden-xs">
-                Neros Systems <?php echo date("Y"); ?>
+                <?php echo(APP_AUTHOR . ' ' . date("Y")); ?>
             </div>
             <!-- Default to the left -->
-            <strong>Projeto desenvolvido por <a href="http://labs.neros.com.br">Neros Labs</a>.</strong>
+            <?php echo(APP_NAME . ' ' . APP_VERSION); ?>
         </footer>
 
     </div><!-- ./wrapper -->
