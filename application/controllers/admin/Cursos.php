@@ -42,20 +42,6 @@ class Cursos extends CI_Controller {
         }
     }
     
-    //Habilitar acesso admin ou de professor ao usuário (ou remover)
-    function habilitar($id,$tipo_acesso,$acesso) {
-        verificarSessaoAtiva();
-
-        if (!usuarioAdmin()) {
-            redirect(base_url() . index_page() . '/inicio');
-        }
-
-        $retorno = $this->usuario_model->habilitarUsuario($id,$tipo_acesso,$acesso);
-        if ($retorno) {
-            redirect(base_url() . index_page() . '/admin/usuarios');
-        }
-    }
-
     //Ativar ou desativar o usuario
     function ativar($id,$ativo) {
         verificarSessaoAtiva();
@@ -64,8 +50,7 @@ class Cursos extends CI_Controller {
             redirect(base_url() . index_page() . '/inicio');
         }
 
-        $this->usuario_model->ativarUsuario($id,$ativo);
-        //$this->index();
+        $this->curso_model->ativarCurso($id,$ativo);
         redirect(base_url() . index_page() . '/admin/usuarios');
     }
 

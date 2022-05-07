@@ -40,20 +40,23 @@
 
 </head>
 <body style="height:100%; background-repeat: no-repeat; background-size: cover; background-image: url(https://assetsnffrgf-a.akamaihd.net/assets/m/502018510/univ/art/502018510_univ_lsr_lg.jpg); ">
-    <!--<div class="jumbotron" style="background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg);">
-    -->
-    <div class="jumbotron" style="background-color: transparent;">
-        <div class="container" style="color:#000000; background: #ffffff; opacity: 0.7;">
-            <div style="opacity: 1;">
-                <img src="<?php echo(base_url() . 'uploads/img/logo.png');?>" width="10%" height="10%">
-                <h1 class="display-4" >Curso em Libras</h1>
-                <p class="lead" >Projeto de conclusão do curso de Análise e Desenvolvimento de Sistemas da FATEC Ipiranga</p>
-                <p>São Paulo/SP, Brasil, <?php echo(date('Y'));?></p>
-                <p class="lead">
-                    <button type="button" class="btn btn-primary" id="button_acesso">Acessar o sistema</button>
-                    <button type="button" class="btn bg-navy" id="button_registro">Registrar</button>
+    <div class="container">
+        <img src="<?php echo(base_url() . 'uploads/img/icon.png');?>">
+    </div>
+    <div class="container">
+        <!--<div class="jumbotron" style="background: no-repeat url(https://assetsnffrgf-a.akamaihd.net/assets/m/502018510/univ/art/502018510_univ_lsr_lg.jpg);">-->
+        <div class="jumbotron" style="background: no-repeat url(<?php echo(base_url() . 'uploads/img/bg_alpha50.png');?>);">
+            <div>
+                <img src="<?php echo(base_url() . 'uploads/img/logo.png');?>" width="15%" height="15%">
+                <h1 class="display-4" ><?php echo(APP_NAME);?> <small>v<?php echo(APP_VERSION);?></small></h1>
+                <p class="small"><b>Trabalho de Conclusão de Curso apresentado à Faculdade de Tecnologia do Ipiranga, como requisito parcial para a obtenção do grau de Tecnólogo em Análise e Desenvolvimento de Sistemas</p>
+                <p class="small"><b>Orientado pela Profa. Mrs. Andreia Grisolio Machion</p>
+                <p>
+                    <button type="button" class="btn btn-primary" id="button_acesso">Acesse a plataforma</button>
+                    <button type="button" class="btn bg-navy" id="button_registro">Cadastre-se como aluno</button> 
+                    <i><small>É professor e quer ministrar aulas aqui? <a href="mailto:contato@neros.com.br">Entre em contato conosco.</a></small></i>
                 </p>
-                <strong>Projeto desenvolvido pela <a href="http://labs.neros.com.br">Neros Labs</a>.</strong>
+                <p><b><?php echo(APP_AUTHOR);?> | Brasil | <?php echo(date('Y'));?></p>
             </div>
         </div>
     </div>
