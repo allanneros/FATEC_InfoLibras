@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+  require(APPPATH . '/controllers/misc/Mensagens.php');
+?>
 
 <!--<div class="content-wrapper" style="min-height: 960.3px;">-->
 <div class="content-wrapper">
@@ -9,6 +11,10 @@
       <li><a href="#"><i class="fa fa-dashboard"></i> In&iacute;cio</a></li>
     </ol>
   </section>
+  <?php 
+    echo(Mensagens::lerMensagem());
+  ?>
+
 <!--
 </div>
 -->
