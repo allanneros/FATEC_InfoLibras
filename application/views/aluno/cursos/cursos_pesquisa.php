@@ -15,15 +15,7 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<?php 
-						if (isset($retorno)) {
-							if ($retorno) {
-								echo('<div class="alert alert-success alert-dismissible">');
-								echo('<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>');
-                				echo('<h4><i class="icon fa fa-check"></i> Aviso</h4>');
-                				echo($retorno);
-              					echo('</div>');
-							}
-						}
+						echo(Mensagens::lerMensagem());
 					?>
 					<div class="box box-primary">
                         <!--box-header-->

@@ -20,7 +20,7 @@
 				<div class="col-xs-12">
 					<?php 
 						$id_curso = $curso['id'];
-						echo('<h1>'. $curso['curso'] . '</h1>');
+						echo('<h1>'. $curso['curso'] . ' ' . '<button id="button_voltar" class="btn btn-default">Voltar para o curso</button>' . '</h1>');
 						echo('<p>' . nl2br($curso['descricao']) . '</p>');
 					?>
 					<div class="box box-primary">
@@ -74,7 +74,7 @@
     </div>
 
 <script type="text/javascript">
-    document.getElementById("button_incluir").onclick = function(){
-        location.href="<?php echo(base_url() . index_page() . '/professor/aulas/criar/' . $id_curso)?>";
+    document.getElementById("button_voltar").onclick = function(){
+        location.href="<?php echo(base_url() . index_page() . '/aluno/cursos')?>";
     }
 </script>

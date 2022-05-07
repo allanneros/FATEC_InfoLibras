@@ -1,4 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
+require(APPPATH . '/controllers/mail/MailNotificacoes.php');
+require(APPPATH . '/controllers/misc/Mensagens.php');
 
 //Classe Curso
 //Neros Labs
@@ -27,18 +29,22 @@ class Cursos extends CI_Controller {
         }
 
         $data       = lerSessaoAtual();
-        $retorno = $this->_verificarInscricao($data['usuario_id'],$id_curso);
-
+        $retorno    = $this->_verificarInscricao($data['usuario_id'],$id_curso);
+        
         if ($retorno) {
-            $data['retorno'] = "Você já está matriculado neste curso.";
+            Mensagens::definirMensagem('warning','Você já está matriculado neste curso.');
+
         } else {
             $retorno = $this->curso_model->matricularCurso($data['usuario_id'],$id_curso);
             if ($retorno) {
-                $data['retorno'] = "Inscrição realizada com sucesso.";
+                Mensagens::definirMensagem('success','Inscrição realizada com sucesso.');
+            
             } 
+
         }
 
-        $this->index($data['retorno']);
+        $this->index();
+
     }
 
     //Página inicial 
@@ -51,9 +57,14 @@ class Cursos extends CI_Controller {
             }
 
             $data = lerSessaoAtual();
-            $data['retorno'] = (!is_null($retorno)) ? $retorno : ''; 
-            
-            $this->pesquisar($data['retorno']);
+
+            if (!is_null($retorno)) {
+                redirect(base_url() . index_page() . '/aluno/inicio');
+
+            } else {
+                $this->pesquisar();
+
+            }
 
         }  catch(Exception $e) {
             echo($e->getMessage());
@@ -63,7 +74,7 @@ class Cursos extends CI_Controller {
 
     //Pesquisar curso
     //Pesquisa o nome ou a descrição do curso
-    public function pesquisar($retorno=NULL,$palavra=NULL) {
+    public function pesquisar($palavra=NULL) {
         try {
             verificarSessaoAtiva();
 
@@ -73,9 +84,14 @@ class Cursos extends CI_Controller {
 
             $data = lerSessaoAtual();
 
-            $data['lista_cursos'] = $this->curso_model->pesquisarCursosAtivos($palavra);
-            $data['pageTitle'] = 'Buscar cursos';
-            $data['retorno'] = $retorno;
+            $data['lista_cursos']   = $this->curso_model->pesquisarCursosAtivos($palavra);
+            $data['pageTitle']      = 'Buscar cursos';
+            $data['retorno']        = "";
+
+            if (!$data['lista_cursos']) {
+                Mensagens::definirMensagem('warning','Não foram encontrados cursos com esta palavra.');
+
+            }
             
             $this->load->view('_restrito/header',$data);
             $this->load->view('aluno/navbar',$data);
@@ -108,6 +124,7 @@ class Cursos extends CI_Controller {
             //Lista as aulas vinculadas ao curso
             $aulas = $this->aula_model->listarAulas($id_curso);
 
+            $data['pageTitle']      = "Visualizar curso";
             $data['curso']          = $curso;
             $data['lista_aulas']    = $aulas;
 
