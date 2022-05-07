@@ -18,7 +18,7 @@
 				<div class="col-xs-12">
 					<div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Criar</h3>
+                            <h3 class="box-title"><i class='fa fa-plus'></i> Incluir um novo curso</h3>
                         </div>
                         <!-- /.box-header -->
 						<!-- form start -->
@@ -36,15 +36,11 @@
                                 <div class="form-group">
                                     <input type="hidden" id="form_id_usuario" name="form_id_usuario" class="form-control">
                                 </div>
-                                <div class="form-group">
-                                    <label for="exampleInputFile">Imagem</label>
-                                    <input id="exampleInputFile" type="file">
-                                    <p class="help-block">Ilustra&ccedil;&atilde;o para o curso</p>
-                                </div>
                             </div>
                             <!-- /.box-body -->
                             <div class="box-footer">
-                                <button type="submit" class="btn btn-primary">Incluir</button>
+                                <button type="submit" class="btn btn-primary">Confirmar inclusão</button>
+                                <button type="button" class="btn btn-default" id="button_voltar">Voltar para a lista de cursos</button>
                             </div>
                         <?php echo(form_close());?>
                         <!--</form> -->
@@ -55,7 +51,7 @@
     </div>
 
 <script type="text/javascript">
-    //document.getElementById("button_incluir").onclick = function(){
-    //    location.href="<?php //echo(base_url() . index_page() . '/professor/cursos/criar')?>";
-    //}
-</script>                    
+    document.getElementById("button_voltar").onclick = function(){
+        location.href="<?php echo(base_url() . index_page() . '/professor/cursos');?>";
+    }
+</script>

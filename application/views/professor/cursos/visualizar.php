@@ -17,17 +17,50 @@
         <section class="content">
 			<!-- Your Page Content Here -->
 			<div class="row">
-				<div class="col-xs-12">
+                <?php 
+                    echo(Mensagens::lerMensagem());
+                ?>
+				<div class="col-sm-6">
 					<?php 
 						$id_curso = $curso['id'];
-						echo('<h1>'. $curso['curso'] . ' ' . '<button class="btn btn-sm btn-default" onclick="window.location=\'' . base_url() . index_page() . "/professor/cursos". '\'">Voltar para a lista de Cursos</button>'. '</h1>');
+
+						$arquivo_imagem = base_url() . '/uploads/curso/' . $id_curso . '.jpg';
+						if ($fp = curl_init($arquivo_imagem)) {
+							$imagem = '<img src="' . $arquivo_imagem . '" style="max-width:200px; max-height:100px;"/>';
+						} else {
+							$imagem = '';
+						}
+
+						//links
+						$link_listar		= base_url() . index_page() . '/professor/cursos';
+						$link_editar 		= base_url() . index_page() . '/professor/cursos/editar/' . $id_curso;
+						$link_ativar 		= base_url() . index_page() . '/professor/cursos/ativar/' . $id_curso . '/';
+						$link_excluir 		= base_url() . index_page() . '/professor/cursos/excluir/' . $id_curso;
+
+						echo($imagem);
+						echo('<h1>');
+						echo('<i class="fa fa-video-camera"></i> ');
+						echo($curso['curso'] . ' ');
+						echo('<button class="btn btn-sm btn-default" onclick="window.location=\'' . $link_listar . '\'"><i class="fa fa-arrow-left"></i> Voltar para a lista de Cursos</button>');
+						echo('<button class="btn btn-sm btn-primary" onclick="window.location=\'' . $link_editar . '\'"><i class="fa fa-edit"></i> Editar</button>');
+						echo('<button class="btn btn-sm btn-warning" onclick="window.location=\'' . $link_ativar . '\'"><i class="fa fa-check"></i> Ativar/Desativar</button>');
+						echo('<button class="btn btn-sm btn-danger" onclick="window.location=\'' . $link_excluir . '\'"><i class="fa fa-trash"></i> Excluir</button>');
+						echo('</h1>');
+
+						if (!$curso['ativo']) {
+							echo('<div class="alert alert-danger">');
+							echo('Este curso está <strong>inativo</strong> e não estará visível aos alunos.');
+							echo('</div>');
+						}
 						echo('<p>' . nl2br($curso['descricao']) . '</p>');
 					?>
+				</div>
+				<div class="col-sm-6">
 					<div class="box box-primary">
                         <!--box-header-->
                         <div class="box-header">
 							<h3 class="box-title">Lista de aulas deste curso</h3> &nbsp;
-							<button class="btn btn-sm btn-success" id="button_incluir">Incluir aula</button>
+							<button class="btn btn-sm btn-success" id="button_incluir"><i class='fa fa-plus'></i> Incluir aula</button>
                         </div>
                         <!-- /.box-header -->
 						<?php
@@ -55,14 +88,17 @@
 										$link_excluir 	= base_url() . index_page() . '/professor/aulas/excluir/' . $aula_id . "/" . $id_curso;
 
 										echo('<tr>');
-                                        echo('<td style="width:20px;">' . $aula_id . '</td>');
+                                        //echo('<td style="width:0px;">' . $aula_id . '</td>');
                                         echo('<td>');
-                                            echo('<b>' . $aula_tema . '</b>');
+                                            echo('<h4>');
+                                            echo($aula_tema);
+                                            echo(' ');
+											echo('<button class="btn btn-sm btn-default" onclick="window.location=\'' . $link_editar . '\'"><i class="fa fa-edit"></i> Editar aula</button>');
+											echo('<button class="btn btn-sm btn-danger" onclick="window.location=\'' . $link_excluir . '\'"><i class="fa fa-trash"></i> Excluir aula</button>');
+                                            echo('</h4>');
                                             echo('<p>' . nl2br($aula_resumo) . '</p>');
                                         echo('</td>');
 										echo('<td style="width:150px;" align="right">');
-										echo('<button class="btn btn-sm btn-default" onclick="window.location=\'' . $link_editar . '\'">Editar</button>');
-										echo('<button class="btn btn-sm btn-danger" onclick="window.location=\'' . $link_excluir . '\'">Excluir</button>');
 										echo('</td>');
 										echo('</tr>');
 									}

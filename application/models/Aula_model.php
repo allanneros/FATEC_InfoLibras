@@ -10,6 +10,28 @@ class Aula_model extends CI_Model {
         parent::__construct(); 
     }
 
+    //Inclui o material da aula
+    public function incluirMaterial($id_aula,$material_descricao,$material_arquivo) {
+        $data = array (
+            'id_aula'   => $id_aula,
+            'nome'      => $material_descricao,
+            'arquivo'   => $material_arquivo
+        );
+        $this->db->insert('material',$data);
+        return $this->db->insert_id();
+
+    }
+
+    //Listar materiais
+    public function listarMateriais($id_aula) {
+        if ($id_aula!=NULL) {
+            $query = $this->db->get_where('material',array('id_aula'=>$id_aula));
+            return $query->result_array();
+        } else {
+            return NULL;
+        }
+    }
+
     //Exclui o video da aula
     public function excluirVideo($id_aula) {
         $data = array (
@@ -21,9 +43,10 @@ class Aula_model extends CI_Model {
     }
 
     //Inclui o video na aula
-    public function incluirVideo($id_aula,$arquivo_video) {
+    public function incluirVideo($id_aula,$arquivo_video,$arquivo_legenda) {
         $data = array (
-            'arquivo_video' => $arquivo_video
+            'arquivo_video'     =>  $arquivo_video,
+            'arquivo_legenda'   =>  $arquivo_legenda
         );
         $this->db->where('id',$id_aula);
         $this->db->update('aula',$data);
@@ -44,11 +67,12 @@ class Aula_model extends CI_Model {
     }
 
     //Atualizar dados da aula
-    public function atualizarAula($id,$tema,$resumo,$arquivo_video){
+    public function atualizarAula($id,$tema,$resumo,$arquivo_video,$arquivo_legenda){
         $data = array (
-            'tema'          => $tema,
-            'resumo'        => $resumo,
-            'arquivo_video' => $arquivo_video
+            'tema'              =>  $tema,
+            'resumo'            =>  $resumo,
+            'arquivo_video'     =>  $arquivo_video,
+            'arquivo_legenda'   =>  $arquivo_legenda 
         );
         $this->db->where('id',$id);
         $this->db->update('aula',$data);
