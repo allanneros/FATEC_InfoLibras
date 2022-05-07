@@ -121,16 +121,16 @@ class Curso_model extends CI_Model {
     //Se id_usuario for informado lista apenas os cursos do professor
     public function listarCursos($id_usuario=NULL) {
         if ($id_usuario!=NULL) {
-            $query = $this->db->get_where('curso',array('id_usuario'=>$id_usuario));
+            $query = $this->db->get_where('uvw_cursos',array('id_usuario'=>$id_usuario));
         } else {
-            $query = $this->db->get('curso');
+            $query = $this->db->get('uvw_cursos');
         }
         return $query->result_array();
     }
 
     //Carrega informações de um único curso
     public function lerCurso($id){
-        $query = $this->db->get_where('curso',array('id'=>$id));
+        $query = $this->db->get_where('uvw_cursos',array('id'=>$id));
         return $query->row_array();
     }
 

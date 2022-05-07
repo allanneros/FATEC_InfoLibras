@@ -1,4 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
+require(APPPATH . '/controllers/mail/MailNotificacoes.php');
+require(APPPATH . '/controllers/misc/Mensagens.php');
 
 //Classe Curso
 //Neros Labs
@@ -9,6 +11,7 @@ class Cursos extends CI_Controller {
 
     function __construct() { 
         parent::__construct();
+        $this->load->helper(array('form', 'url'));
         $this->load->model('curso_model');
     }
 
@@ -22,7 +25,8 @@ class Cursos extends CI_Controller {
             }
 
             $data = lerSessaoAtual();
-            $data['pageTitle'] = "Cursos";
+            $data['pageTitle']      = "Cursos";
+            //$data['breadcrumbs']    = $this->load->view('');
 
             if (!is_null($retorno)) {
                 $data['retorno'] = $retorno;
@@ -98,7 +102,7 @@ class Cursos extends CI_Controller {
         }
 
         $this->curso_model->ativarCurso($id,$ativo);
-        $this->index();
+        redirect(base_url() . index_page() . '/professor/cursos');
     }
 
     //Página de criação do curso - cria cursos vinculados ao professor logado
@@ -123,12 +127,30 @@ class Cursos extends CI_Controller {
         if ($this->input->post('form_curso') != NULL) {
             $form_curso     = $this->input->post('form_curso');
             $form_descricao = $this->input->post('form_descricao');
+            $form_arquivo   = $_FILES['form_arquivo'];
+
+            $upload_config  = array(
+                                    'upload_path'   =>  './uploads/curso/',
+                                    'allowed_types' =>  'jpg|jpeg|png',
+                                    'file_name'     =>  $form_id .'.jpg',
+                                    'max_size'      =>  '500'
+                                    );
+            $this->load->library('upload');
+
+            if ($form_arquivo) {
+                $this->upload->initialize($upload_config);
+                if ($this->upload->do_upload('form_arquivo')) {
+                    Mensagens::definirMensagem('success','Arquivo salvo com sucesso.');
+                } else {
+                    Mensagens::definirMensagem('danger','Não foi possível salvar o arquivo.');
+                }
+            }
 
             $data['retorno'] = $this->curso_model->incluirCurso($form_curso,$form_descricao,$data['usuario_id']);
 
             //Se conseguir incluir no sistema, direciona para a listagem e exibe mensagem
             if ($data['retorno']) {
-                $this->index($data['retorno']);
+                Mensagens::definirMensagem('success','Curso atualizado.');
                 redirect(base_url() . index_page() . '/professor/cursos');
             }
 
@@ -153,24 +175,53 @@ class Cursos extends CI_Controller {
         $data['lista_usuarios'] = $this->usuario_model->listarUsuarios();
         $data['curso']          = $this->curso_model->lerCurso($id);
 
-        $data['page_title'] = 'Editar';
+        $data['pageTitle'] = 'Editar curso';
 
         if ($this->input->post('form_id') != NULL) {
             //se tem dados entao eh pra atualizar
             $form_id            = $this->input->post('form_id');
             $form_curso         = $this->input->post('form_curso');
             $form_descricao     = $this->input->post('form_descricao');
+            //$form_arquivo       = $_FILES['form_arquivo'];
 
-            $data['retorno'] = $this->curso_model->atualizarCurso($form_id,$form_curso,$form_descricao,$data['usuario_id']);
+            $upload_config  = array(
+                                    'upload_path'   =>  './uploads/curso/',
+                                    'allowed_types' =>  'jpg|jpeg|png',
+                                    'file_name'     =>  $form_id .'.jpg',
+                                    'max_size'      =>  500,
+                                    'max_width'     =>  1024,
+                                    'max_height'    =>  768,
+                                    'overwrite'     =>  TRUE
+                            );
 
-            if ($data['retorno']) {
-                $this->index($data['retorno']);
+            //var_export($_FILES['form_arquivo']);
+            $this->load->library('upload', $upload_config);
+            //$this->upload->initialize($upload_config);
+
+            if ($this->upload->do_upload('form_arquivo')) {
+                Mensagens::definirMensagem('success','Arquivo salvo com sucesso.');
+
+            } else {
+                Mensagens::definirMensagem('danger','Não foi possível salvar o arquivo.' . $this->upload->display_errors('<p>', '</p>'));
+
             }
+
+            $retorno = $this->curso_model->atualizarCurso($form_id,$form_curso,$form_descricao,$data['usuario_id']);
+            
+            if ($retorno) {
+                Mensagens::definirMensagem('success','Curso atualizado.');
+            } else {
+                Mensagens::definirMensagem('danger','Não foi possível atualizar o curso.');
+            }
+
+            redirect(base_url() . index_page() . '/professor/cursos');
+
         } else {
             $this->load->view('_restrito/header',$data);
             $this->load->view('professor/navbar');
             $this->load->view('professor/cursos/editar',$data);
             $this->load->view('_restrito/footer',$data);
+
         }
     }
 
