@@ -27,24 +27,18 @@
                     </li>
                     -->
                 </ul>
-                <form class="navbar-form navbar-left" role="search">
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="navbar-search-input" placeholder="Pesquisar curso">
-                    </div>
-                </form>
-
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
                         <!-- User Account: style can be found in dropdown.less -->
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="<?php echo(base_url() . 'uploads/img/logo_neros_systems_box_icon_96x96.png'); ?>" class="user-image" alt="User Image">
+                                <img src="<?php echo(base_url() . 'uploads/img/icon.png'); ?>" class="user-image" alt="User Image">
                                 <span class="hidden-xs"><?php echo($usuario_nome);?></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header">
-                                    <img src="<?php echo(base_url() . 'uploads/img/logo_neros_systems_box_icon_96x96.png'); ?>" class="img-circle" alt="User Image">
+                                    <img src="<?php echo(base_url() . 'uploads/img/icon.png'); ?>" class="img-circle" alt="User Image">
                                     <p style="color:#000;"><?php echo($usuario_nome);?><small><?php echo($usuario_login);?></small></p>
                                 </li>
                                 <!-- Menu Body -->

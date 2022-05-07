@@ -15,7 +15,10 @@ class Inicio extends CI_Controller {
         }
 
         $data = lerSessaoAtual();
-        $data['pageTitle']  = "Início - Acesso de Professor";
+        $data['pageTitle']  = "Dashboard";
+
+        //carrega a view na variávei
+        //$msg = $this->load->view('some_view', '', true);
 
         $this->load->view('_restrito/header',$data);
         $this->load->view('professor/navbar',$data);
